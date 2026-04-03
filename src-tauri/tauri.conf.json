@@ -1,0 +1,41 @@
+{
+  "build": {
+    "beforeBuildCommand": "",
+    "beforeDevCommand": "",
+    "devPath": "../frontend",
+    "distDir": "../frontend",
+    "withGlobalTauri": true 
+  },
+  "package": {
+    "productName": "Ironclad Watch Engine",
+    "version": "0.1.0"
+  },
+  "tauri": {
+    "allowlist": {
+      "window": {
+        "all": false,
+        "startDragging": true
+      }
+    },
+    "bundle": {
+      "active": true,
+      "identifier": "com.ironclad.widget",
+      "icon": [
+        "icons/icon.ico"
+      ]
+    },
+    "windows": [
+      {
+        "title": "Ironclad Widget",
+        "width": 320,
+        "height": 450,
+        "resizable": false,
+        "fullscreen": false,
+        "transparent": true,
+        "decorations": false,
+        "alwaysOnTop": true,
+        "skipTaskbar": true
+      }
+    ]
+  }
+}

@@ -1,3 +1,11 @@
+// Avoid a terminal window opening when running the app
+#![cfg_attr(
+    all(not(debug_assertions), target_os = "windows"),
+    windows_subsystem = "windows"
+)]
+
 fn main() {
-    println!("Hello, world!");
+    tauri::Builder::default()
+        .run(tauri::generate_context!())
+        .expect("Error al inicializar el motor Tauri");
 }
