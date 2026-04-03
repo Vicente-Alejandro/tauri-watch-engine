@@ -1,0 +1,40 @@
+# -----------------------------------------------------------------------------
+# RUST / CARGO
+# -----------------------------------------------------------------------------
+# Rust build directory. Contains heavy binaries that should not be committed.
+/target/
+/target/debug/
+/target/release/
+
+# -----------------------------------------------------------------------------
+# TAURI / FRONTEND (Node.js / Web)
+# -----------------------------------------------------------------------------
+# Frontend dependencies (if using npm, pnpm, yarn, or bun)
+node_modules/
+
+# Frontend build directories (Vite, Webpack, etc.)
+dist/
+build/
+out/
+
+# Local environment files and secrets
+.env
+.env.local
+.env.*.local
+
+# -----------------------------------------------------------------------------
+# IDEs AND EDITORS
+# -----------------------------------------------------------------------------
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# -----------------------------------------------------------------------------
+# OPERATING SYSTEM
+# -----------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
