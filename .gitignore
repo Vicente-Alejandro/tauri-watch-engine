@@ -5,6 +5,7 @@
 /target/
 /target/debug/
 /target/release/
+/src-tauri/target/
 
 # -----------------------------------------------------------------------------
 # TAURI / FRONTEND (Node.js / Web)
