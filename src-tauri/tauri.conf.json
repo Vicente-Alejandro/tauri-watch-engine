@@ -14,7 +14,9 @@
     "allowlist": {
       "window": {
         "all": false,
-        "startDragging": true
+        "startDragging": true,
+        "setSize": true,
+        "center": true
       }
     },
     "bundle": {
