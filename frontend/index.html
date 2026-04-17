@@ -18,7 +18,7 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: #0f172a; color: #e2e8f0; padding: 2rem; min-height: 100vh;
+            color: #e2e8f0; min-height: 100vh;
         }
         .container { max-width: 1400px; margin: 0 auto; }
         header {
@@ -138,9 +138,9 @@
 </head>
 <body>
     <div class="left-panel">
-        <div class="clock-panel">
+        <div class="clock-panel" data-tauri-drag-region>
             <button id="maximize-watch-btn" class="maximize-btn" title="Fullscreen Watch">⛶</button>
-            <div class="clock-title">System Time</div>
+            <div class="clock-title" data-tauri-drag-region>System Time</div>
             
             <div class="watch-selector">
                 <select class="watch-select" id="watch-style-select">
@@ -161,7 +161,7 @@
                 <div id="watch-description" class="watch-desc">Quartz Module 1Hz<br>Cushion Case</div>
             </div>
 
-            <div class="watch-container" id="original-watch-container">
+            <div class="watch-container" id="original-watch-container" data-tauri-no-drag>
                 <div id="watch-case" class="watch-case quartz">
                     <div class="watch-crown" id="watch-crown"></div>
                     <div class="watch-face" id="watch-face"></div>
@@ -176,7 +176,7 @@
     <div class="watch-modal-overlay" id="watch-modal">
         <button class="close-modal-btn" id="close-watch-modal">×</button>
         <div class="watch-modal-content" id="maximized-watch-container">
-            </div>
+        </div>
     </div>
 
     <script src="./js/engine.js"></script>
@@ -184,12 +184,7 @@
     <script>
         // Initialize Application
         document.addEventListener('DOMContentLoaded', () => {
-            // Init the clock module if it loaded correctly from /static
-            if (typeof ClockModule !== 'undefined') {
                 ClockModule.init();
-            } else {
-                console.error("The clock module js in /static/framework/dashboard/clock.js is not available or is not loaded correctly.");
-            }
         });
     </script>
 </body>

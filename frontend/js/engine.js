@@ -766,6 +766,9 @@ const ClockModule = (function() {
 
         setupMaximizeFeature();
         renderWatch(select.value);
+        
+        setupWindowDrag();
+        
         requestRef = requestAnimationFrame(updateLoop);
     }
 
@@ -776,23 +779,64 @@ const ClockModule = (function() {
         const originalContainer = document.getElementById('original-watch-container');
         const maximizedContainer = document.getElementById('maximized-watch-container');
         const watchCase = document.getElementById('watch-case');
+        
+        const mainPanel = document.querySelector('.clock-panel'); 
 
-        function openModal() {
+        async function openModal() {
             isMaximized = true;
+            mainPanel.classList.add('widget-hidden'); 
             maximizedContainer.appendChild(watchCase);
             modalOverlay.classList.add('active');
+
+            
+            if (window.__TAURI__) {
+                const appWindow = window.__TAURI__.window.appWindow;
+                const LogicalSize = window.__TAURI__.window.LogicalSize;
+                
+                
+                await appWindow.setSize(new LogicalSize(550, 550));
+                await appWindow.center(); 
+            }
         }
 
-        function closeModal() {
+        async function closeModal() {
             isMaximized = false;
             modalOverlay.classList.remove('active');
+            mainPanel.classList.remove('widget-hidden'); 
+
+
+            if (window.__TAURI__) {
+                const appWindow = window.__TAURI__.window.appWindow;
+                const LogicalSize = window.__TAURI__.window.LogicalSize;
+                
+                await appWindow.setSize(new LogicalSize(320, 450));
+            }
+
             setTimeout(() => { originalContainer.appendChild(watchCase); }, 300);
         }
 
         maximizeBtn.addEventListener('click', openModal);
         closeModalBtn.addEventListener('click', closeModal);
-        modalOverlay.addEventListener('click', (e) => { if (e.target === modalOverlay) closeModal(); });
         document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isMaximized) closeModal(); });
+    }   
+
+    function setupWindowDrag() {
+        if (window.__TAURI__) {
+            const { appWindow } = window.__TAURI__.window;
+            const panel = document.querySelector('.clock-panel');
+            
+            panel.addEventListener('mousedown', (e) => {
+                const isInteractive = e.target.closest('button') || 
+                                      e.target.closest('select') || 
+                                      e.target.closest('.casio-btn') || 
+                                      e.target.closest('.dbc-key') ||
+                                      e.target.closest('.submariner-bezel');
+                
+                if (!isInteractive && e.buttons === 1) {
+                    appWindow.startDragging();
+                }
+            });
+        }
     }
 
     function renderWatch(mode) {
